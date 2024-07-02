@@ -22,5 +22,17 @@ RSpec.describe StringProcessor do
         expect(processor.compute_sum("1,5,6,3")).to eq(15)
       end
     end
+
+    context 'when the input contains newlines between numbers' do
+      it 'returns the sum of the numbers' do
+        expect(processor.compute_sum("1\n2,3")).to eq(6)
+      end
+    end
+
+    context 'when the input ends with a newline' do
+      it 'returns "Invalid Input"' do
+        expect(processor.compute_sum("1,\n")).to eq("Invalid Input")
+      end
+    end
   end
 end
