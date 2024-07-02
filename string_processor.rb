@@ -3,7 +3,8 @@ class StringProcessor
     return 0 if input.empty?
     return input.to_i if single_value?(input)
     return "Invalid Input" if invalid_input?(input)
-    total_sum(split_values(input))
+    numbers = custom_delimiter?(input) ? split_custom_values(input) : split_values(input)
+    validate_negatives(numbers)
   end
 
   private
@@ -18,6 +19,26 @@ class StringProcessor
 
   def invalid_input?(input)
     input.end_with?("\n")
+  end
+
+  def custom_delimiter?(input)
+    input.start_with?("//")
+  end
+
+  def split_custom_values(input)
+    delimiter = extract_delimiter(input)
+    input.split("\n", 2).last.split(delimiter).map(&:to_i)
+  end
+
+  def extract_delimiter(input)
+    input.split("\n").first[2..-1]
+  end
+
+  def validate_negatives(values)
+    negatives = values.select(&:negative?)
+    return "Negative numbers not allowed #{negatives.join(',')}" if negatives.any?
+
+    values.sum
   end
 
   def total_sum(values)
