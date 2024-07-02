@@ -15,5 +15,12 @@ RSpec.describe StringProcessor do
         expect(processor.compute_sum("1")).to eq(1)
       end
     end
+
+    context 'when the input contains multiple numbers separated by commas' do
+      it 'returns the sum of the numbers' do
+        expect(processor.compute_sum("1,5")).to eq(6)
+        expect(processor.compute_sum("1,5,6,3")).to eq(15)
+      end
+    end
   end
 end
