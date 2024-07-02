@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 class StringProcessor
   def compute_sum(input)
     return 0 if input.empty?
     return input.to_i if single_value?(input)
-    return "Invalid Input" if invalid_input?(input)
+    return 'Invalid Input' if invalid_input?(input)
+
     numbers = custom_delimiter?(input) ? split_custom_values(input) : split_values(input)
     validate_negatives(numbers)
   end
@@ -22,7 +25,7 @@ class StringProcessor
   end
 
   def custom_delimiter?(input)
-    input.start_with?("//")
+    input.start_with?('//')
   end
 
   def split_custom_values(input)
@@ -31,7 +34,7 @@ class StringProcessor
   end
 
   def extract_delimiter(input)
-    input.split("\n").first[2..-1]
+    input.split("\n").first[2..]
   end
 
   def validate_negatives(values)
